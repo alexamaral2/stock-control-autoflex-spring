@@ -41,3 +41,12 @@ spring:
             - "authorization"
             - "content-type"
             - "x-requested-with"
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    filter: true
+  api-docs:
+    path: /v3/api-docs
+  show-actuator: false
