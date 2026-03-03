@@ -1,0 +1,81 @@
+<div class="p-6 bg-gray-50 min-h-screen">
+  <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+    <h1 class="text-2xl font-bold text-slate-800">Product Inventory</h1>
+
+    <div class="flex-1 w-full max-w-md mx-0 md:mx-4">
+      <div class="relative">
+        <mat-icon class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</mat-icon>
+        <input
+          type="text"
+          (keyup)="applyFilter($event)"
+          placeholder="Search products..."
+          class="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white shadow-sm transition-all"
+        >
+      </div>
+    </div>
+
+    <button mat-flat-button color="primary" class="!rounded-full" routerLink="new">
+      <mat-icon class="mr-2">add</mat-icon> New Product
+    </button>
+  </div>
+
+  <div class="bg-white shadow-xl rounded-2xl overflow-hidden border border-slate-200">
+    <table mat-table [dataSource]="dataSource" class="w-full">
+
+      <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef class="bg-slate-50 text-slate-600 font-bold"> Code </th>
+        <td mat-cell *matCellDef="let p" class="text-slate-500 font-mono text-sm"> {{p.code}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="bg-slate-50 text-slate-600 font-bold"> Product Name </th>
+        <td mat-cell *matCellDef="let p" class="font-medium text-slate-800"> {{p.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef class="bg-slate-50 text-slate-600 font-bold"> Unit Price </th>
+        <td mat-cell *matCellDef="let p" class="text-slate-700"> {{p.price | currency:'USD'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="bg-slate-50"> </th>
+        <td mat-cell *matCellDef="let p" class="text-right whitespace-nowrap px-4">
+          <button mat-icon-button
+                  color="primary"
+                  [routerLink]="['edit', p.id]"
+                  matTooltip="Edit Product"
+                  class="hover:bg-blue-50">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button mat-icon-button
+                  color="warn"
+                  (click)="onDelete(p.id!)"
+                  matTooltip="Delete Product"
+                  class="hover:bg-red-50">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+          class="hover:bg-slate-50 transition-colors cursor-default"></tr>
+    </table>
+
+    @if (dataSource.filteredData.length === 0) {
+      <div class="p-16 text-center text-slate-400 bg-white">
+        <mat-icon class="text-6xl h-auto w-auto mb-4 opacity-20">inventory_2</mat-icon>
+        <p class="text-lg">No products found in inventory.</p>
+        <p class="text-sm">Start by adding a new item to your stock.</p>
+      </div>
+    }
+
+    <mat-paginator
+      [pageSize]="7"
+      [pageSizeOptions]="[7, 14, 21, 50]"
+      showFirstLastButtons
+      class="border-t border-slate-100 bg-slate-50/50">
+    </mat-paginator>
+  </div>
+</div>

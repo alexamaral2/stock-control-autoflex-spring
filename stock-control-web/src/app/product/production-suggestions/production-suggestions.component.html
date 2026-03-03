@@ -1,0 +1,75 @@
+<div class="bg-white shadow-xl rounded-2xl overflow-hidden p-8">
+
+  <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+    <div>
+      <h2 class="text-2xl font-bold text-slate-800">Production Suggestions</h2>
+      <p class="text-slate-500 text-sm">Recommended items to manufacture based on stock</p>
+    </div>
+
+    <div class="flex-1 w-full max-w-md md:mx-4">
+      <div class="relative">
+        <mat-icon class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</mat-icon>
+        <input
+          type="text"
+          (keyup)="applyFilter($event)"
+          placeholder="Filter suggestions..."
+          class="w-full pl-10 pr-4 py-2 rounded-full border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white transition-all text-sm"
+        >
+      </div>
+    </div>
+
+    <div class="bg-slate-50 border border-slate-200 rounded-xl px-6 py-2 text-right">
+      <span class="text-xs uppercase text-slate-500 font-bold block">Total Est. Value</span>
+      <span class="text-xl font-bold text-blue-600">{{ totalValue() | currency:'USD' }}</span>
+    </div>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" class="w-full">
+
+    <ng-container matColumnDef="productCode">
+      <th mat-header-cell *matHeaderCellDef class="text-slate-900 font-semibold py-4 uppercase text-xs"> Code </th>
+      <td mat-cell *matCellDef="let s" class="py-4 text-slate-500 font-mono text-sm"> {{s.productCode}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="productName">
+      <th mat-header-cell *matHeaderCellDef class="text-slate-900 font-semibold py-4 uppercase text-xs"> Product </th>
+      <td mat-cell *matCellDef="let s" class="py-4 text-slate-900 font-medium"> {{s.productName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="quantityToProduce">
+      <th mat-header-cell *matHeaderCellDef class="text-slate-900 font-semibold py-4 text-center uppercase text-xs"> Suggestion </th>
+      <td mat-cell *matCellDef="let s" class="py-4 text-center">
+        <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm font-bold">
+          +{{s.quantityToProduce}} units
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="unitPrice">
+      <th mat-header-cell *matHeaderCellDef class="text-slate-900 font-semibold py-4 uppercase text-xs"> Unit Price </th>
+      <td mat-cell *matCellDef="let s" class="py-4 text-slate-600"> {{s.unitPrice | currency:'USD'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="subtotal">
+      <th mat-header-cell *matHeaderCellDef class="text-slate-900 font-semibold py-4 uppercase text-xs"> Subtotal </th>
+      <td mat-cell *matCellDef="let s" class="py-4 text-slate-900 font-bold"> {{s.subtotal | currency:'USD'}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" class="border-b border-slate-200"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-slate-50 transition-colors border-b border-slate-100 last:border-none"></tr>
+  </table>
+
+  @if (dataSource.filteredData.length === 0) {
+    <div class="p-20 text-center text-slate-400">
+      <mat-icon class="text-5xl mb-2 opacity-20">analytics</mat-icon>
+      <p>No production suggestions available at the moment.</p>
+    </div>
+  }
+
+  <mat-paginator
+    [pageSize]="7"
+    [pageSizeOptions]="[7, 14, 21]"
+    showFirstLastButtons
+    class="mt-4">
+  </mat-paginator>
+</div>

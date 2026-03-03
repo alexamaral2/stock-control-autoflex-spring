@@ -70,6 +70,7 @@ public class ProductService {
         entity.setPrice(dto.price());
 
         entity.getMaterials().clear();
+        productRepository.saveAndFlush(entity);
 
         updateMaterialsList(entity, dto);
 

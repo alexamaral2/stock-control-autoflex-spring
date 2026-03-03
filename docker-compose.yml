@@ -34,6 +34,21 @@ services:
     ports:
       - "8080:8080"
 
+  web:
+    build:
+      context: ./stock-control-web
+      dockerfile: Dockerfile
+    container_name: stock-control-web
+    volumes:
+      - ./stock-control-web:/app
+      - /app/node_modules
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+    depends_on:
+      - api
+    ports:
+      - "4200:4200"
+
 volumes:
   stock_control_pg:
   maven-cache:
