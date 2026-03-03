@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:18
+    container_name: stock-control-db
+    env_file:
+      - .env
+    ports:
+      - "5433:5432"
+    volumes:
+      - stock_control_pg:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./stock-control-api
+      dockerfile: Dockerfile
+      target: dev
+
+    container_name: stock-control-api
+    working_dir: /work
+    volumes:
+      - ./stock-control-api:/work
+      - maven-cache:/root/.m2
+    env_file:
+      - .env
+    command: ./mvnw spring-boot:run
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+
+volumes:
+  stock_control_pg:
+  maven-cache:
