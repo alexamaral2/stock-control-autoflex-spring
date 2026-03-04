@@ -5,6 +5,11 @@ COPY .mvn .mvn
 COPY mvnw .
 RUN ./mvnw dependency:go-offline -B
 
+FROM build-cache AS test
+WORKDIR /work
+COPY src src
+CMD ["./mvnw", "clean", "test"]
+
 FROM build-cache AS dev
 WORKDIR /work
 

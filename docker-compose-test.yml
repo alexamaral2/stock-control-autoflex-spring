@@ -20,7 +20,7 @@ services:
     build:
       context: ./stock-control-api
       dockerfile: Dockerfile
-      target: dev
+      target: test
     container_name: stock-control-api-test
     working_dir: /work
     volumes:
