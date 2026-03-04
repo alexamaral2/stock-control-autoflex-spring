@@ -3,21 +3,17 @@ WORKDIR /work
 COPY pom.xml .
 COPY .mvn .mvn
 COPY mvnw .
-RUN ./mvnw -q -DskipTests dependency:go-offline
+RUN ./mvnw dependency:go-offline -B
 
 FROM build-cache AS dev
 WORKDIR /work
-COPY src src
-EXPOSE 8080
-CMD ["./mvnw", "spring-boot:run", "-Dspring-boot.run.jvmArguments=-Dserver.address=0.0.0.0"]
 
-FROM build-cache AS build
-WORKDIR /work
-COPY src src
-RUN ./mvnw -DskipTests clean package
+RUN apt-get update && apt-get install -y inotify-tools && rm -rf /var/lib/apt/lists/*
 
-FROM eclipse-temurin:25-jre AS prod
-WORKDIR /app
-COPY --from=build /work/target/*.jar app.jar
+COPY src src
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
+ENTRYPOINT ["/docker-entrypoint.sh"]

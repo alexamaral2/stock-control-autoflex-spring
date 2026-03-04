@@ -27,7 +27,6 @@ services:
       - maven-cache:/root/.m2
     env_file:
       - .env
-    command: ./mvnw spring-boot:run
     depends_on:
       db:
         condition: service_healthy
