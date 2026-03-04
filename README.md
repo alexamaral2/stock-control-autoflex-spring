@@ -178,7 +178,7 @@ docker compose up --build
 <h2>🧪 Testes Automatizados</h2>
 
 <pre>
-docker compose -f docker-compose.test.yml up --build --abort-on-container-exit
+docker compose -f docker-compose-test.yml up --build --abort-on-container-exit
 </pre>
 
 <hr>
