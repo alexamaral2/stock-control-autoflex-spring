@@ -3,6 +3,7 @@ import { ProductComponent } from './product.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { ProductionSuggestionsComponent } from './production-suggestions/production-suggestions.component';
+import {ProductDetailComponent} from './product-detail/product-detail.component';
 
 export const PRODUCT_ROUTES: Routes = [
   {
@@ -28,6 +29,11 @@ export const PRODUCT_ROUTES: Routes = [
         path: 'suggestions',
         component: ProductionSuggestionsComponent,
         title: 'Production Suggestions',
+      },
+      {
+        path: ':id',
+        component: ProductDetailComponent,
+        title: 'Product Details',
       },
     ],
   },

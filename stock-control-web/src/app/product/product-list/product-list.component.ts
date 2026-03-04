@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, inject, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router'; // 1. Adicionado Router aqui
 
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,6 +29,7 @@ import { Product } from '../product.model';
 })
 export class ProductListComponent implements OnInit {
   private service = inject(ProductService);
+  private router = inject(Router); // 2. Injetado o Router para fazer o redirecionamento
 
   products = signal<Product[]>([]);
   displayedColumns = ['code', 'name', 'price', 'actions'];
@@ -48,6 +49,11 @@ export class ProductListComponent implements OnInit {
     this.refresh();
   }
 
+  // 3. Novo método para tratar o clique na linha
+  onRowClick(product: Product) {
+    this.router.navigate(['/products', product.id]);
+  }
+
   refresh() {
     this.service.listAll().subscribe((res) => {
       this.products.set(res);
@@ -63,7 +69,8 @@ export class ProductListComponent implements OnInit {
     }
   }
 
-  onDelete(id: number) {
+  onDelete(event: Event, id: number) {
+    event.stopPropagation();
     if (confirm('Are you sure you want to delete this product?')) {
       this.service.remove(id).subscribe(() => this.refresh());
     }

@@ -1,0 +1,61 @@
+<div class="p-6 bg-gray-50 min-h-screen font-sans">
+
+  <div *ngIf="errorMessage" class="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-xl mb-6 flex items-center gap-3">
+    <mat-icon>error_outline</mat-icon>
+    <p class="font-medium">{{ errorMessage }}</p>
+  </div>
+
+  <div *ngIf="loading" class="flex flex-col items-center justify-center h-64 text-slate-400">
+    <mat-icon class="animate-spin mb-2">sync</mat-icon>
+    <p>Loading material details...</p>
+  </div>
+
+  <div *ngIf="!loading && material">
+
+    <div class="flex items-center justify-between mb-8">
+      <div class="flex items-center gap-4">
+        <button mat-icon-button routerLink="/raw-materials" class="bg-white border border-slate-200 shadow-sm">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <div>
+          <h1 class="text-2xl font-bold text-slate-800">{{ material.name }}</h1>
+          <p class="text-slate-500 font-mono text-xs uppercase tracking-tighter">Code: {{ material.code }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <div class="lg:col-span-2 space-y-6">
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 relative overflow-hidden">
+          <div class="absolute top-0 right-0 p-4">
+            <span class="px-3 py-1 bg-amber-50 text-amber-600 text-[10px] font-bold rounded-full uppercase">Raw Material</span>
+          </div>
+
+          <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">Stock Information</h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="space-y-1">
+              <p class="text-slate-500 text-sm italic">Current Quantity</p>
+              <p class="text-4xl font-black text-slate-900">{{ material.quantity }} <span class="text-base font-normal text-slate-500">units</span></p>
+            </div>
+            <div class="space-y-1">
+              <p class="text-slate-500 text-sm italic">System ID</p>
+              <p class="text-xl font-mono font-bold text-blue-600">#{{ material.id }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <button mat-flat-button color="primary" [routerLink]="['/raw-materials/edit', material.id]" class="w-full !py-6 !rounded-xl">
+          <mat-icon class="mr-2">edit</mat-icon> Edit Material
+        </button>
+        <button (click)="onDelete()" class="w-full py-3 border-2 border-dashed border-red-100 text-red-400 hover:bg-red-50 rounded-xl transition-all flex items-center justify-center gap-2 text-sm font-medium">
+          <mat-icon class="text-sm">delete</mat-icon> Delete Item
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

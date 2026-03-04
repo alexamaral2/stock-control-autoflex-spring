@@ -1,5 +1,7 @@
 export interface ProductMaterial {
   rawMaterialId: number;
+  code: string;
+  name: string;
   quantity: number;
 }
 

@@ -23,7 +23,7 @@
   <table mat-table [dataSource]="dataSource" class="w-full">
     <ng-container matColumnDef="code">
       <th mat-header-cell *matHeaderCellDef class="text-slate-900 font-semibold py-4"> CODE </th>
-      <td mat-cell *matCellDef="let m" class="py-4 text-slate-600"> {{m.code}} </td>
+      <td mat-cell *matCellDef="let m" class="py-4 text-slate-600 font-mono text-sm"> {{m.code}} </td>
     </ng-container>
 
     <ng-container matColumnDef="name">
@@ -41,21 +41,26 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> </th>
       <td mat-cell *matCellDef="let m" class="text-right py-4">
-        <button mat-icon-button color="primary" [routerLink]="['edit', m.id]" class="mr-2" matTooltip="Edit Material">
+        <button mat-icon-button color="primary" [routerLink]="['edit', m.id]" (click)="$event.stopPropagation()" class="mr-2 hover:bg-blue-50" matTooltip="Edit Material">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button color="warn" (click)="onDelete(m.id!)" matTooltip="Delete Material">
+        <button mat-icon-button color="warn" (click)="onDelete($event, m.id!)" class="hover:bg-red-50" matTooltip="Delete Material">
           <mat-icon>delete</mat-icon>
         </button>
       </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns" class="border-b border-slate-200"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-slate-50 transition-colors border-b border-slate-100 last:border-none"></tr>
+
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+        (click)="onRowClick(row)"
+        class="hover:bg-slate-50 transition-colors border-b border-slate-100 last:border-none cursor-pointer group">
+    </tr>
   </table>
 
   @if (dataSource.filteredData.length === 0) {
     <div class="p-20 text-center text-slate-400">
+      <mat-icon class="text-6xl mb-4 opacity-20">inventory</mat-icon>
       <p>No raw materials found in stock.</p>
     </div>
   }
@@ -64,6 +69,6 @@
     [pageSize]="7"
     [pageSizeOptions]="[7, 14, 21]"
     showFirstLastButtons
-    class="mt-4">
+    class="mt-4 border-t border-slate-100">
   </mat-paginator>
 </div>

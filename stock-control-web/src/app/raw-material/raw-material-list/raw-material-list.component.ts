@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, signal, ViewChild, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router'; // Importado o Router
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -31,6 +31,7 @@ import { RawMaterial } from '../raw-material.model';
 export class RawMaterialListComponent implements OnInit {
   private service = inject(RawMaterialService);
   private snackBar = inject(MatSnackBar);
+  private router = inject(Router); // Router injetado
 
   materials = signal<RawMaterial[]>([]);
   displayedColumns: string[] = ['code', 'name', 'quantity', 'actions'];
@@ -42,7 +43,9 @@ export class RawMaterialListComponent implements OnInit {
   constructor() {
     effect(() => {
       this.dataSource.data = this.materials();
-      this.dataSource.paginator = this.paginator;
+      if (this.paginator) {
+        this.dataSource.paginator = this.paginator;
+      }
     });
   }
 
@@ -54,6 +57,10 @@ export class RawMaterialListComponent implements OnInit {
     this.service.findAll().subscribe((data) => this.materials.set(data));
   }
 
+  onRowClick(material: RawMaterial): void {
+    this.router.navigate(['/raw-materials', material.id]);
+  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -63,10 +70,11 @@ export class RawMaterialListComponent implements OnInit {
     }
   }
 
-  onDelete(id: number): void {
+  onDelete(event: Event, id: number): void {
+    event.stopPropagation();
     if (confirm('Are you sure you want to delete this raw material?')) {
       this.service.delete(id).subscribe(() => {
-        this.snackBar.open('Material deleted', 'OK', { duration: 3000 });
+        this.snackBar.open('Material deleted successfully', 'OK', { duration: 3000 });
         this.loadMaterials();
       });
     }

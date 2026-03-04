@@ -1,0 +1,86 @@
+<div class="p-6 bg-gray-50 min-h-screen font-sans">
+
+  <div *ngIf="errorMessage" class="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-xl mb-6 flex items-center gap-3">
+    <mat-icon>error_outline</mat-icon>
+    <p class="font-medium">{{ errorMessage }}</p>
+  </div>
+
+  <div *ngIf="loading" class="flex flex-col items-center justify-center h-64 text-slate-400">
+    <mat-icon class="animate-spin mb-2">sync</mat-icon>
+    <p>Loading product details...</p>
+  </div>
+
+  <div *ngIf="!loading && product">
+
+    <div class="flex items-center justify-between mb-8">
+      <div class="flex items-center gap-4">
+        <button mat-icon-button routerLink="/products" class="bg-white border border-slate-200 shadow-sm">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <div>
+          <h1 class="text-2xl font-bold text-slate-800">{{ product.name }}</h1>
+          <p class="text-slate-500 font-mono text-xs uppercase tracking-tighter">SKU: {{ product.code }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <div class="lg:col-span-2 space-y-6">
+
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 relative overflow-hidden">
+          <p class="text-slate-400 text-xs font-bold uppercase mb-2">Unit Price</p>
+          <p class="text-4xl font-black text-slate-900">{{ product.price | currency:'USD' }}</p>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+          <div class="p-4 bg-slate-50 border-b border-slate-100 flex justify-between">
+            <h3 class="font-bold text-slate-700 flex items-center gap-2">
+              <mat-icon class="text-slate-400">reorder</mat-icon> Bill of Materials (BOM)
+            </h3>
+          </div>
+
+          <table class="w-full text-left border-collapse">
+            <thead>
+            <tr class="text-[10px] uppercase text-slate-400 border-b border-slate-50">
+              <th class="px-6 py-3 font-bold">Material</th>
+              <th class="px-6 py-3 font-bold text-right">Quantity</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <ng-container *ngIf="product.materials && product.materials.length > 0">
+              <tr *ngFor="let item of product.materials" class="hover:bg-slate-50 transition-colors border-b border-slate-50">
+                <td class="px-6 py-4">
+                  <div class="flex flex-col">
+                    <span class="text-slate-800 font-semibold">{{ item.name }}</span>
+                    <span class="text-[10px] font-mono text-slate-400 italic">Code: {{ item.code }}</span>
+                  </div>
+                </td>
+                <td class="px-6 py-4 text-right font-mono font-bold text-blue-600">
+                  {{ item.quantity }}
+                </td>
+              </tr>
+            </ng-container>
+
+            <tr *ngIf="!product.materials || product.materials.length === 0">
+              <td colspan="2" class="px-6 py-10 text-center text-slate-400 italic">No materials found.</td>
+            </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <button mat-flat-button color="primary" [routerLink]="['/products/edit', product.id]" class="w-full !py-6 !rounded-xl">
+          <mat-icon class="mr-2">edit</mat-icon> Edit Product
+        </button>
+        <button (click)="onDelete()" class="w-full py-3 border-2 border-dashed border-red-100 text-red-400 hover:bg-red-50 rounded-xl transition-all flex items-center justify-center gap-2 text-sm font-medium">
+          <mat-icon class="text-sm">delete</mat-icon> Delete Item
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
