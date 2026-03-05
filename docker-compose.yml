@@ -23,6 +23,7 @@ services:
       POSTGRES_PASSWORD: ${KC_DB_PASSWORD}
     volumes:
       - keycloak_pg:/var/lib/postgresql/
+      - ./backup_keycloak.sql:/docker-entrypoint-initdb.d/backup_keycloak.sql
 
   keycloak:
     image: quay.io/keycloak/keycloak:26.5.4
