@@ -20,6 +20,7 @@ e priorizando itens de <b>maior valor unitário</b> para otimizar o ROI.
 <li><b>Backend:</b> Spring Boot 4.0.3 (Java 25)</li>
 <li><b>Frontend:</b> Angular 21 (Material + TailwindCSS)</li>
 <li><b>Database:</b> PostgreSQL 18</li>
+<li><b>Autenticação:</b> Keycloak (OpenID Connect)</li>
 <li><b>Infraestrutura:</b> Docker & Docker Compose</li>
 </ul>
 
@@ -34,6 +35,7 @@ e priorizando itens de <b>maior valor unitário</b> para otimizar o ROI.
 <li>Java 25 (Eclipse Temurin)</li>
 <li>Spring Data JPA / Hibernate</li>
 <li>Flyway (migrations)</li>
+<li>Spring Security</li>
 <li>Springdoc OpenAPI</li>
 <li>JUnit 5</li>
 <li>Rest-Assured</li>
@@ -45,7 +47,45 @@ e priorizando itens de <b>maior valor unitário</b> para otimizar o ROI.
 <li>Angular 21.2</li>
 <li>Angular Material</li>
 <li>TailwindCSS 4</li>
+<li>Keycloak JS Adapter</li>
 <li>Vitest</li>
+</ul>
+
+<hr>
+
+<h2>🔐 Autenticação</h2>
+
+<p>
+A aplicação utiliza <b>Keycloak</b> para autenticação e autorização,
+seguindo o padrão <b>OpenID Connect (OIDC)</b>.
+</p>
+
+<p>
+Todas as rotas da API (prefixo <code>/api</code>) são protegidas
+e exigem um <b>access token JWT</b> válido emitido pelo Keycloak.
+</p>
+
+<h3>Usuário padrão de teste</h3>
+
+<p>
+Após subir a aplicação com Docker, um usuário de teste para acessar a aplicação é criado automaticamente:
+</p>
+
+<ul>
+<li><b>Usuário:</b> teste</li>
+<li><b>Senha:</b> teste</li>
+</ul>
+
+<h3>Acesso ao Keycloak</h3>
+
+<pre>
+http://localhost:8081
+</pre>
+
+<ul>
+<li><b>Realm:</b> stock-control</li>
+<li><b>Client Frontend:</b> stock-control-web</li>
+<li><b>Client API:</b> stock-control-api</li>
 </ul>
 
 <hr>
@@ -55,79 +95,81 @@ e priorizando itens de <b>maior valor unitário</b> para otimizar o ROI.
 <p>A API responde no prefixo <code>/api</code>.</p>
 
 <table>
-  <tr>
-    <th>Método</th>
-    <th>Endpoint</th>
-    <th>Descrição</th>
-  </tr>
+<tr>
+<th>Método</th>
+<th>Endpoint</th>
+<th>Descrição</th>
+</tr>
 
-  <tr>
-    <td><b>GET</b></td>
-    <td><code>/api/products</code></td>
-    <td>Lista todos os produtos</td>
-  </tr>
+<tr>
+<td><b>GET</b></td>
+<td><code>/api/products</code></td>
+<td>Lista todos os produtos</td>
+</tr>
 
-  <tr>
-    <td><b>GET</b></td>
-    <td><code>/api/products/{id}</code></td>
-    <td>Busca um produto pelo ID</td>
-  </tr>
+<tr>
+<td><b>GET</b></td>
+<td><code>/api/products/{id}</code></td>
+<td>Busca um produto pelo ID</td>
+</tr>
 
-  <tr>
-    <td><b>POST</b></td>
-    <td><code>/api/products</code></td>
-    <td>Cadastra um novo produto</td>
-  </tr>
+<tr>
+<td><b>POST</b></td>
+<td><code>/api/products</code></td>
+<td>Cadastra um novo produto</td>
+</tr>
 
-  <tr>
-    <td><b>PUT</b></td>
-    <td><code>/api/products/{id}</code></td>
-    <td>Atualiza um produto existente</td>
-  </tr>
+<tr>
+<td><b>PUT</b></td>
+<td><code>/api/products/{id}</code></td>
+<td>Atualiza um produto existente</td>
+</tr>
 
-  <tr>
-    <td><b>DELETE</b></td>
-    <td><code>/api/products/{id}</code></td>
-    <td>Remove um produto</td>
-  </tr>
+<tr>
+<td><b>DELETE</b></td>
+<td><code>/api/products/{id}</code></td>
+<td>Remove um produto</td>
+</tr>
 
-  <tr>
-    <td><b>GET</b></td>
-    <td><code>/api/products/production-suggestions</code></td>
-    <td>Retorna sugestões de produção priorizando produtos de maior valor</td>
-  </tr>
+<tr>
+<td><b>GET</b></td>
+<td><code>/api/products/production-suggestions</code></td>
+<td>Retorna sugestões de produção priorizando produtos de maior valor</td>
+</tr>
 
-  <tr>
-    <td><b>GET</b></td>
-    <td><code>/api/raw-materials</code></td>
-    <td>Lista o estoque de matérias-primas</td>
-  </tr>
+<tr>
+<td><b>GET</b></td>
+<td><code>/api/raw-materials</code></td>
+<td>Lista o estoque de matérias-primas</td>
+</tr>
 
-  <tr>
-    <td><b>GET</b></td>
-    <td><code>/api/raw-materials/{id}</code></td>
-    <td>Busca uma matéria-prima pelo ID</td>
-  </tr>
+<tr>
+<td><b>GET</b></td>
+<td><code>/api/raw-materials/{id}</code></td>
+<td>Busca uma matéria-prima pelo ID</td>
+</tr>
 
-  <tr>
-    <td><b>POST</b></td>
-    <td><code>/api/raw-materials</code></td>
-    <td>Cadastra uma nova matéria-prima</td>
-  </tr>
+<tr>
+<td><b>POST</b></td>
+<td><code>/api/raw-materials</code></td>
+<td>Cadastra uma nova matéria-prima</td>
+</tr>
 
-  <tr>
-    <td><b>PUT</b></td>
-    <td><code>/api/raw-materials/{id}</code></td>
-    <td>Atualiza uma matéria-prima existente</td>
-  </tr>
+<tr>
+<td><b>PUT</b></td>
+<td><code>/api/raw-materials/{id}</code></td>
+<td>Atualiza uma matéria-prima existente</td>
+</tr>
 
-  <tr>
-    <td><b>DELETE</b></td>
-    <td><code>/api/raw-materials/{id}</code></td>
-    <td>Remove uma matéria-prima</td>
-  </tr>
+<tr>
+<td><b>DELETE</b></td>
+<td><code>/api/raw-materials/{id}</code></td>
+<td>Remove uma matéria-prima</td>
+</tr>
 
 </table>
+
+<hr>
 
 <h2>📑 Documentação da API</h2>
 
@@ -172,6 +214,15 @@ cp .env.example .env
 <pre>
 docker compose up --build
 </pre>
+
+<p>Após iniciar:</p>
+
+<ul>
+<li><b>Frontend:</b> http://localhost:4200</li>
+<li><b>Backend API:</b> http://localhost:8080/api</li>
+<li><b>Swagger UI:</b> http://localhost:8080/api/swagger-ui/index.html</li>
+<li><b>Keycloak:</b> http://localhost:8081</li>
+</ul>
 
 <hr>
 
