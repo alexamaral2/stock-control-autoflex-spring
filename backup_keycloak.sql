@@ -1672,6 +1672,7 @@ c384aae9-4d5b-487b-b9ef-977a6c03e2c7	t	t	stock-web	0	t	\N		f	http://localhost:42
 a60452b1-4bd0-44bd-9ce8-b77b6a3f1ef9	t	t	security-admin-console	0	t	\N	/admin/stock-control-realm/console/	f	\N	f	41afada5-8096-4d14-92f4-5079d0a42a1d	openid-connect	0	f	f	${client_security-admin-console}	f	client-secret	${authAdminUrl}	\N	\N	t	f	f	f
 bf1cb08b-39f9-4a02-9523-7d5ec27dfa72	t	f	account	0	t	\N	/realms/stock-control-realm/account/	f	\N	f	41afada5-8096-4d14-92f4-5079d0a42a1d	openid-connect	0	f	f	${client_account}	f	client-secret	${authBaseUrl}	\N	\N	t	f	f	f
 ee1ad023-81cc-4905-86cc-3bb0a80bb7da	t	f	account-console	0	t	\N	/realms/stock-control-realm/account/	f	\N	f	41afada5-8096-4d14-92f4-5079d0a42a1d	openid-connect	0	f	f	${client_account-console}	f	client-secret	${authBaseUrl}	\N	\N	t	f	f	f
+0edc87d6-edf9-453d-9073-55d8143f0cd4	t	t	stock-worker	0	f	ecn5cctgPj8nHPvNVVjebXiueH4jT9mf		f		f	41afada5-8096-4d14-92f4-5079d0a42a1d	openid-connect	-1	t	f		t	client-secret			\N	t	f	f	f
 \.
 
 
@@ -1700,6 +1701,33 @@ c384aae9-4d5b-487b-b9ef-977a6c03e2c7	oidc.ciba.grant.enabled	false
 c384aae9-4d5b-487b-b9ef-977a6c03e2c7	dpop.bound.access.tokens	false
 c384aae9-4d5b-487b-b9ef-977a6c03e2c7	backchannel.logout.session.required	true
 c384aae9-4d5b-487b-b9ef-977a6c03e2c7	backchannel.logout.revoke.offline.tokens	false
+c384aae9-4d5b-487b-b9ef-977a6c03e2c7	realm_client	false
+c384aae9-4d5b-487b-b9ef-977a6c03e2c7	display.on.consent.screen	false
+c384aae9-4d5b-487b-b9ef-977a6c03e2c7	frontchannel.logout.session.required	true
+c384aae9-4d5b-487b-b9ef-977a6c03e2c7	logout.confirmation.enabled	false
+c384aae9-4d5b-487b-b9ef-977a6c03e2c7	access.token.header.type.rfc9068	false
+c384aae9-4d5b-487b-b9ef-977a6c03e2c7	id.token.as.detached.signature	false
+c384aae9-4d5b-487b-b9ef-977a6c03e2c7	request.object.required	not required
+c384aae9-4d5b-487b-b9ef-977a6c03e2c7	use.refresh.tokens	true
+c384aae9-4d5b-487b-b9ef-977a6c03e2c7	client_credentials.use_refresh_token	false
+c384aae9-4d5b-487b-b9ef-977a6c03e2c7	token.response.type.bearer.lower-case	false
+c384aae9-4d5b-487b-b9ef-977a6c03e2c7	tls.client.certificate.bound.access.tokens	false
+c384aae9-4d5b-487b-b9ef-977a6c03e2c7	require.pushed.authorization.requests	false
+c384aae9-4d5b-487b-b9ef-977a6c03e2c7	client.use.lightweight.access.token.enabled	false
+c384aae9-4d5b-487b-b9ef-977a6c03e2c7	client.introspection.response.allow.jwt.claim.enabled	false
+c384aae9-4d5b-487b-b9ef-977a6c03e2c7	acr.loa.map	{}
+c384aae9-4d5b-487b-b9ef-977a6c03e2c7	pkce.code.challenge.method	S256
+0edc87d6-edf9-453d-9073-55d8143f0cd4	client.secret.creation.time	1772747741
+0edc87d6-edf9-453d-9073-55d8143f0cd4	standard.token.exchange.enabled	false
+0edc87d6-edf9-453d-9073-55d8143f0cd4	oauth2.device.authorization.grant.enabled	false
+0edc87d6-edf9-453d-9073-55d8143f0cd4	oidc.ciba.grant.enabled	false
+0edc87d6-edf9-453d-9073-55d8143f0cd4	dpop.bound.access.tokens	false
+0edc87d6-edf9-453d-9073-55d8143f0cd4	backchannel.logout.session.required	true
+0edc87d6-edf9-453d-9073-55d8143f0cd4	backchannel.logout.revoke.offline.tokens	false
+0edc87d6-edf9-453d-9073-55d8143f0cd4	realm_client	false
+0edc87d6-edf9-453d-9073-55d8143f0cd4	display.on.consent.screen	false
+0edc87d6-edf9-453d-9073-55d8143f0cd4	frontchannel.logout.session.required	true
+0edc87d6-edf9-453d-9073-55d8143f0cd4	logout.confirmation.enabled	false
 \.
 
 
@@ -1987,6 +2015,18 @@ c384aae9-4d5b-487b-b9ef-977a6c03e2c7	4093ec20-f746-47c5-b92c-52eb67725380	f
 c384aae9-4d5b-487b-b9ef-977a6c03e2c7	37690b89-3dbf-4c0d-a02c-fee95835be61	f
 c384aae9-4d5b-487b-b9ef-977a6c03e2c7	09e2e827-08d2-4307-8cfc-154232c0ed0d	f
 c384aae9-4d5b-487b-b9ef-977a6c03e2c7	3bf3c4d0-659b-4a7a-9e0a-614aba646317	f
+0edc87d6-edf9-453d-9073-55d8143f0cd4	d6f48ab8-ab41-45a8-a64b-9dd638c7ff5f	t
+0edc87d6-edf9-453d-9073-55d8143f0cd4	b01e43af-0983-45b6-82a4-5cfa88d15700	t
+0edc87d6-edf9-453d-9073-55d8143f0cd4	6f0404c5-c6dd-4ea1-b145-591fe85595b6	t
+0edc87d6-edf9-453d-9073-55d8143f0cd4	0b612215-750f-4d9d-b909-46f4e0a54109	t
+0edc87d6-edf9-453d-9073-55d8143f0cd4	79ff0bbd-45e6-4fbc-99da-d34ff22a6c14	t
+0edc87d6-edf9-453d-9073-55d8143f0cd4	53c5f94b-f304-4ca3-88f1-3f70149806fc	t
+0edc87d6-edf9-453d-9073-55d8143f0cd4	eb0bb277-713d-4a98-b782-a5b092d5ca75	f
+0edc87d6-edf9-453d-9073-55d8143f0cd4	4093ec20-f746-47c5-b92c-52eb67725380	f
+0edc87d6-edf9-453d-9073-55d8143f0cd4	37690b89-3dbf-4c0d-a02c-fee95835be61	f
+0edc87d6-edf9-453d-9073-55d8143f0cd4	09e2e827-08d2-4307-8cfc-154232c0ed0d	f
+0edc87d6-edf9-453d-9073-55d8143f0cd4	3bf3c4d0-659b-4a7a-9e0a-614aba646317	f
+0edc87d6-edf9-453d-9073-55d8143f0cd4	fffe9976-b280-4c5f-8705-2be08afae48f	t
 \.
 
 
@@ -2692,7 +2732,8 @@ khcgn	26.5.4	1772682387
 --
 
 COPY public.offline_client_session (user_session_id, client_id, offline_flag, "timestamp", data, client_storage_provider, external_client_id, version) FROM stdin;
-1J7iSgiaTsMPmSgACg20nRrL	f0f68f03-f62d-42e3-8a6a-0b87849b4a9a	0	1772730088	{"authMethod":"openid-connect","redirectUri":"http://localhost:8081/admin/master/console/","notes":{"clientId":"f0f68f03-f62d-42e3-8a6a-0b87849b4a9a","iss":"http://localhost:8081/realms/master","startedAt":"1772729954","response_type":"code","level-of-authentication":"-1","code_challenge_method":"S256","nonce":"5969e773-3f70-4050-95e9-f1fb7982ec0b","response_mode":"query","scope":"openid","userSessionStartedAt":"1772729954","redirect_uri":"http://localhost:8081/admin/master/console/","state":"e87f8330-03cf-4312-83b9-505c567be826","code_challenge":"KXJy9B0zKGQDR_dvpwxx4ouW-2IwYjMHHXq0pSHej08"}}	local	local	2
+R6R8ZnO68dAt5DoiGr0r8iNN	c384aae9-4d5b-487b-b9ef-977a6c03e2c7	0	1772747380	{"authMethod":"openid-connect","redirectUri":"https://oauth.pstmn.io/v1/callback","notes":{"clientId":"c384aae9-4d5b-487b-b9ef-977a6c03e2c7","scope":"openid","userSessionStartedAt":"1772747379","iss":"http://localhost:8081/realms/stock-control-realm","startedAt":"1772747379","response_type":"code","level-of-authentication":"-1","code_challenge_method":"S256","redirect_uri":"https://oauth.pstmn.io/v1/callback","code_challenge":"pTW7grcpACs9VR045gGw5C8RxsjCOMisYrwph-nCwxU"}}	local	local	1
+wvvPdRHvWT1EZJ_jq1kfrfGs	f0f68f03-f62d-42e3-8a6a-0b87849b4a9a	0	1772748458	{"authMethod":"openid-connect","redirectUri":"http://localhost:8081/admin/master/console/#/master/clients","notes":{"clientId":"f0f68f03-f62d-42e3-8a6a-0b87849b4a9a","iss":"http://localhost:8081/realms/master","startedAt":"1772748458","response_type":"code","level-of-authentication":"-1","code_challenge_method":"S256","nonce":"20f3161f-75c0-47db-a746-4e32fcf56efa","response_mode":"query","scope":"openid","userSessionStartedAt":"1772748458","redirect_uri":"http://localhost:8081/admin/master/console/#/master/clients","state":"8369266b-f849-4a0f-82f7-1a0fb400e468","code_challenge":"I5m3YdlgUNnuGdGwajAkJv6d0V8RZu3ePijTSPS9TyU"}}	local	local	0
 \.
 
 
@@ -2701,7 +2742,8 @@ COPY public.offline_client_session (user_session_id, client_id, offline_flag, "t
 --
 
 COPY public.offline_user_session (user_session_id, user_id, realm_id, created_on, offline_flag, data, last_session_refresh, broker_session_id, version, remember_me) FROM stdin;
-1J7iSgiaTsMPmSgACg20nRrL	949b1377-a910-4a0c-975b-c730c862f502	451d845a-b81f-4125-b1b3-f3ec34d3cedb	1772729954	0	{"ipAddress":"172.18.0.1","authMethod":"openid-connect","rememberMe":false,"started":0,"notes":{"KC_DEVICE_NOTE":"eyJpcEFkZHJlc3MiOiIxNzIuMTguMC4xIiwib3MiOiJXaW5kb3dzIiwib3NWZXJzaW9uIjoiMTAiLCJicm93c2VyIjoiQ2hyb21lLzE0NS4wLjAiLCJkZXZpY2UiOiJPdGhlciIsImxhc3RBY2Nlc3MiOjAsIm1vYmlsZSI6ZmFsc2V9","AUTH_TIME":"1772729954","authenticators-completed":"{\\"b7e936ef-326d-4a9f-a533-490306758826\\":1772729954}"},"state":"LOGGED_IN"}	1772730088	\N	2	f
+R6R8ZnO68dAt5DoiGr0r8iNN	753f9009-b472-4566-9405-a4e932dcfe6c	41afada5-8096-4d14-92f4-5079d0a42a1d	1772747379	0	{"ipAddress":"172.18.0.1","authMethod":"openid-connect","rememberMe":false,"started":0,"notes":{"KC_DEVICE_NOTE":"eyJpcEFkZHJlc3MiOiIxNzIuMTguMC4xIiwib3MiOiJXaW5kb3dzIiwib3NWZXJzaW9uIjoiMTAiLCJicm93c2VyIjoiRWxlY3Ryb24vMzMuNC4xMSIsImRldmljZSI6Ik90aGVyIiwibGFzdEFjY2VzcyI6MCwibW9iaWxlIjpmYWxzZX0=","AUTH_TIME":"1772747379","authenticators-completed":"{\\"522b4eb1-14e5-4765-9122-569be746c218\\":1772747379}"},"state":"LOGGED_IN"}	1772747380	\N	1	f
+wvvPdRHvWT1EZJ_jq1kfrfGs	949b1377-a910-4a0c-975b-c730c862f502	451d845a-b81f-4125-b1b3-f3ec34d3cedb	1772748458	0	{"ipAddress":"172.18.0.1","authMethod":"openid-connect","rememberMe":false,"started":0,"notes":{"KC_DEVICE_NOTE":"eyJpcEFkZHJlc3MiOiIxNzIuMTguMC4xIiwib3MiOiJXaW5kb3dzIiwib3NWZXJzaW9uIjoiMTAiLCJicm93c2VyIjoiQ2hyb21lLzE0NS4wLjAiLCJkZXZpY2UiOiJPdGhlciIsImxhc3RBY2Nlc3MiOjAsIm1vYmlsZSI6ZmFsc2V9","AUTH_TIME":"1772748458","authenticators-completed":"{\\"b7e936ef-326d-4a9f-a533-490306758826\\":1772748458}"},"state":"LOGGED_IN"}	1772748458	\N	0	f
 \.
 
 
@@ -3256,7 +3298,7 @@ COPY public.realm (id, access_code_lifespan, user_action_lifespan, access_token_
 --
 
 COPY public.realm_attribute (name, realm_id, value) FROM stdin;
-_browser_header.contentSecurityPolicyReportOnly	451d845a-b81f-4125-b1b3-f3ec34d3cedb	
+_browser_header.contentSecurityPolicyReportOnly	451d845a-b81f-4125-b1b3-f3ec34d3cedb	\N
 _browser_header.xContentTypeOptions	451d845a-b81f-4125-b1b3-f3ec34d3cedb	nosniff
 _browser_header.referrerPolicy	451d845a-b81f-4125-b1b3-f3ec34d3cedb	no-referrer
 _browser_header.xRobotsTag	451d845a-b81f-4125-b1b3-f3ec34d3cedb	none
@@ -3280,7 +3322,7 @@ displayNameHtml	451d845a-b81f-4125-b1b3-f3ec34d3cedb	<div class="kc-logo-text"><
 defaultSignatureAlgorithm	451d845a-b81f-4125-b1b3-f3ec34d3cedb	RS256
 offlineSessionMaxLifespanEnabled	451d845a-b81f-4125-b1b3-f3ec34d3cedb	false
 offlineSessionMaxLifespan	451d845a-b81f-4125-b1b3-f3ec34d3cedb	5184000
-_browser_header.contentSecurityPolicyReportOnly	41afada5-8096-4d14-92f4-5079d0a42a1d	
+_browser_header.contentSecurityPolicyReportOnly	41afada5-8096-4d14-92f4-5079d0a42a1d	\N
 _browser_header.xContentTypeOptions	41afada5-8096-4d14-92f4-5079d0a42a1d	nosniff
 _browser_header.referrerPolicy	41afada5-8096-4d14-92f4-5079d0a42a1d	no-referrer
 _browser_header.xRobotsTag	41afada5-8096-4d14-92f4-5079d0a42a1d	none
@@ -3305,7 +3347,7 @@ oauth2DeviceCodeLifespan	41afada5-8096-4d14-92f4-5079d0a42a1d	600
 oauth2DevicePollingInterval	41afada5-8096-4d14-92f4-5079d0a42a1d	5
 webAuthnPolicyRpEntityName	41afada5-8096-4d14-92f4-5079d0a42a1d	keycloak
 webAuthnPolicySignatureAlgorithms	41afada5-8096-4d14-92f4-5079d0a42a1d	ES256,RS256
-webAuthnPolicyRpId	41afada5-8096-4d14-92f4-5079d0a42a1d	
+webAuthnPolicyRpId	41afada5-8096-4d14-92f4-5079d0a42a1d	\N
 webAuthnPolicyAttestationConveyancePreference	41afada5-8096-4d14-92f4-5079d0a42a1d	not specified
 webAuthnPolicyAuthenticatorAttachment	41afada5-8096-4d14-92f4-5079d0a42a1d	not specified
 webAuthnPolicyRequireResidentKey	41afada5-8096-4d14-92f4-5079d0a42a1d	not specified
@@ -3314,7 +3356,7 @@ webAuthnPolicyCreateTimeout	41afada5-8096-4d14-92f4-5079d0a42a1d	0
 webAuthnPolicyAvoidSameAuthenticatorRegister	41afada5-8096-4d14-92f4-5079d0a42a1d	false
 webAuthnPolicyRpEntityNamePasswordless	41afada5-8096-4d14-92f4-5079d0a42a1d	keycloak
 webAuthnPolicySignatureAlgorithmsPasswordless	41afada5-8096-4d14-92f4-5079d0a42a1d	ES256,RS256
-webAuthnPolicyRpIdPasswordless	41afada5-8096-4d14-92f4-5079d0a42a1d	
+webAuthnPolicyRpIdPasswordless	41afada5-8096-4d14-92f4-5079d0a42a1d	\N
 webAuthnPolicyAttestationConveyancePreferencePasswordless	41afada5-8096-4d14-92f4-5079d0a42a1d	not specified
 webAuthnPolicyAuthenticatorAttachmentPasswordless	41afada5-8096-4d14-92f4-5079d0a42a1d	not specified
 webAuthnPolicyRequireResidentKeyPasswordless	41afada5-8096-4d14-92f4-5079d0a42a1d	Yes
@@ -3338,10 +3380,10 @@ client-policies.profiles	41afada5-8096-4d14-92f4-5079d0a42a1d	{"profiles":[]}
 client-policies.policies	41afada5-8096-4d14-92f4-5079d0a42a1d	{"policies":[]}
 _browser_header.contentSecurityPolicy	41afada5-8096-4d14-92f4-5079d0a42a1d	frame-ancestors 'self' http://localhost:4200;
 _browser_header.xFrameOptions	41afada5-8096-4d14-92f4-5079d0a42a1d	ALLOW-FROM http://localhost:4200
-frontendUrl	41afada5-8096-4d14-92f4-5079d0a42a1d	
-saml.signature.algorithm	41afada5-8096-4d14-92f4-5079d0a42a1d	
+frontendUrl	41afada5-8096-4d14-92f4-5079d0a42a1d	\N
+saml.signature.algorithm	41afada5-8096-4d14-92f4-5079d0a42a1d	\N
 acr.loa.map	41afada5-8096-4d14-92f4-5079d0a42a1d	{}
-displayNameHtml	41afada5-8096-4d14-92f4-5079d0a42a1d	
+displayNameHtml	41afada5-8096-4d14-92f4-5079d0a42a1d	\N
 displayName	41afada5-8096-4d14-92f4-5079d0a42a1d	Stock Control System
 \.
 
@@ -3414,10 +3456,12 @@ COPY public.redirect_uris (client_id, value) FROM stdin;
 aa93bd47-f839-4238-b0b0-fd0b9191ee08	/realms/master/account/*
 1ef46b6e-df4e-433b-afcd-a1c1f7dbff23	/realms/master/account/*
 f0f68f03-f62d-42e3-8a6a-0b87849b4a9a	/admin/master/console/*
-c384aae9-4d5b-487b-b9ef-977a6c03e2c7	http://localhost:4200/*
 a60452b1-4bd0-44bd-9ce8-b77b6a3f1ef9	/admin/stock-control-realm/console/*
 bf1cb08b-39f9-4a02-9523-7d5ec27dfa72	/realms/stock-control-realm/account/*
 ee1ad023-81cc-4905-86cc-3bb0a80bb7da	/realms/stock-control-realm/account/*
+c384aae9-4d5b-487b-b9ef-977a6c03e2c7	http://localhost:4200/*
+c384aae9-4d5b-487b-b9ef-977a6c03e2c7	https://oauth.pstmn.io/v1/callback
+0edc87d6-edf9-453d-9073-55d8143f0cd4	/*
 \.
 
 
@@ -3613,6 +3657,7 @@ COPY public.user_consent_client_scope (user_consent_id, scope_id) FROM stdin;
 COPY public.user_entity (id, email, email_constraint, email_verified, enabled, federation_link, first_name, last_name, realm_id, username, created_timestamp, service_account_client_link, not_before) FROM stdin;
 949b1377-a910-4a0c-975b-c730c862f502	\N	1e33dd56-a048-4c22-b7d6-363527dd9ceb	f	t	\N	\N	\N	451d845a-b81f-4125-b1b3-f3ec34d3cedb	admin	1772682388658	\N	0
 753f9009-b472-4566-9405-a4e932dcfe6c	teste@teste.com	teste@teste.com	f	t	\N	Usuario	Teste	41afada5-8096-4d14-92f4-5079d0a42a1d	teste	1772683432146	\N	0
+afc41759-d84d-4de1-9138-2e3c51d19ccf	\N	515e5a79-1904-452c-8c4b-2c9b202362b5	f	t	\N	\N	\N	41afada5-8096-4d14-92f4-5079d0a42a1d	service-account-stock-worker	1772747741013	0edc87d6-edf9-453d-9073-55d8143f0cd4	0
 \.
 
 
@@ -3672,6 +3717,7 @@ COPY public.user_role_mapping (role_id, user_id) FROM stdin;
 0188e131-5704-4cc9-92db-d30de3bab1b4	949b1377-a910-4a0c-975b-c730c862f502
 51ab19a8-a21d-4a78-aca0-5ca7146addb4	949b1377-a910-4a0c-975b-c730c862f502
 0c352c65-a053-46af-9cb1-2be7e5b9b943	753f9009-b472-4566-9405-a4e932dcfe6c
+0c352c65-a053-46af-9cb1-2be7e5b9b943	afc41759-d84d-4de1-9138-2e3c51d19ccf
 \.
 
 
@@ -3683,6 +3729,7 @@ COPY public.web_origins (client_id, value) FROM stdin;
 f0f68f03-f62d-42e3-8a6a-0b87849b4a9a	+
 a60452b1-4bd0-44bd-9ce8-b77b6a3f1ef9	+
 c384aae9-4d5b-487b-b9ef-977a6c03e2c7	http://localhost:4200
+0edc87d6-edf9-453d-9073-55d8143f0cd4	/*
 \.
 
 
@@ -5843,4 +5890,5 @@ ALTER TABLE ONLY public.identity_provider_config
 --
 -- PostgreSQL database dump complete
 --
+
 
