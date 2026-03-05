@@ -1,36 +1,108 @@
 <div class="flex h-screen bg-slate-100 overflow-hidden">
 
-  <aside class="w-64 bg-slate-900 text-white flex flex-col shadow-2xl">
-    <div class="p-6">
-      <h2 class="text-xl font-black tracking-tighter uppercase flex items-center gap-2">
-        <mat-icon class="text-blue-500">inventory_2</mat-icon>
-        Stock Control
-      </h2>
+  <!-- SIDEBAR -->
+  <aside class="w-72 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white flex flex-col shadow-2xl border-r border-white/5">
+
+    <!-- Brand -->
+    <div class="px-6 pt-7 pb-5">
+      <div class="flex items-center gap-3">
+        <div class="h-10 w-10 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-sm">
+          <mat-icon class="text-blue-400 !text-[22px]">inventory_2</mat-icon>
+        </div>
+
+        <div class="leading-tight">
+          <h2 class="text-lg font-extrabold tracking-tight uppercase">
+            Stock Control
+          </h2>
+          <p class="text-xs text-slate-400">
+            Inventory dashboard
+          </p>
+        </div>
+      </div>
     </div>
 
-    <nav class="flex-grow px-4 mt-4 space-y-2">
-      <a *ngFor="let item of navItems"
-         [routerLink]="item.path"
-         routerLinkActive="bg-blue-600 text-white shadow-lg"
-         [routerLinkActiveOptions]="{ exact: item.path === '/products' }"
-         #rla="routerLinkActive"
-         class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all duration-200 group">
+    <!-- Nav -->
+    <nav class="flex-grow px-4">
+      <p class="px-3 mb-2 text-[10px] uppercase tracking-[0.25em] text-slate-500 font-bold">
+        Menu
+      </p>
 
-        <mat-icon [class.text-blue-400]="rla.isActive">{{ item.icon }}</mat-icon>
-        <span class="font-medium">{{ item.label }}</span>
-      </a>
+      <div class="space-y-1">
+        <a *ngFor="let item of navItems"
+           [routerLink]="item.path"
+           routerLinkActive="is-active"
+           [routerLinkActiveOptions]="{ exact: item.path === '/products' }"
+           #rla="routerLinkActive"
+           class="relative flex items-center gap-3 px-4 py-3 rounded-2xl text-slate-300/90 hover:text-white transition-all duration-200 hover:bg-white/5 group">
+
+          <!-- Active indicator bar -->
+          <span
+            class="absolute left-1 top-1/2 -translate-y-1/2 h-7 w-1 rounded-full bg-blue-500 opacity-0 transition-opacity duration-200"
+            [class.opacity-100]="rla.isActive">
+          </span>
+
+          <mat-icon
+            class="!text-[20px] transition-transform duration-200 group-hover:scale-105"
+            [class.text-blue-400]="rla.isActive"
+            [class.text-slate-400]="!rla.isActive">
+            {{ item.icon }}
+          </mat-icon>
+
+          <span class="font-medium">
+            {{ item.label }}
+          </span>
+
+          <!-- subtle active glow -->
+          <span
+            class="absolute inset-0 rounded-2xl bg-blue-500/10 opacity-0 transition-opacity duration-200"
+            [class.opacity-100]="rla.isActive">
+          </span>
+        </a>
+
+        <!-- Logout -->
+        <button (click)="logout()"
+                class="w-full mt-3 relative flex items-center gap-3 px-4 py-3 rounded-2xl text-slate-300 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200 group">
+          <mat-icon class="!text-[20px] text-slate-400 group-hover:text-red-300">logout</mat-icon>
+          <span class="font-medium">Sign out</span>
+        </button>
+      </div>
     </nav>
 
-    <div class="p-6 border-t border-slate-800 bg-slate-900/50">
-      <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-1">
-        Desenvolvedor
-      </p>
-      <p class="text-sm font-medium text-slate-300 hover:text-blue-400 transition-colors duration-300">
-        Alex Junior Mahia Amaral
-      </p>
+    <!-- Footer -->
+    <div class="p-4">
+      <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+        <!-- Active user -->
+        <div class="flex items-center gap-3">
+          <div class="h-10 w-10 rounded-full bg-blue-500/15 border border-blue-500/20 flex items-center justify-center">
+            <mat-icon class="text-blue-300 !text-[22px]">account_circle</mat-icon>
+          </div>
+
+          <div class="min-w-0">
+            <p class="text-[10px] uppercase tracking-[0.25em] text-slate-400 font-bold">
+              Active user
+            </p>
+            <p class="text-sm font-semibold text-white truncate">
+              {{ username }}
+            </p>
+          </div>
+        </div>
+
+        <div class="my-4 h-px bg-white/10"></div>
+
+        <!-- Developer (kept) -->
+        <div class="min-w-0">
+          <p class="text-[10px] uppercase tracking-[0.25em] text-slate-400 font-bold">
+            Developer
+          </p>
+          <p class="text-sm font-medium text-slate-200 truncate">
+            Alex Junior Mahia Amaral
+          </p>
+        </div>
+      </div>
     </div>
   </aside>
 
+  <!-- MAIN CONTENT -->
   <main class="flex-grow overflow-y-auto">
     <div class="min-h-full p-4 md:p-8">
       <div class="max-w-7xl mx-auto">
@@ -39,7 +111,9 @@
           <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">
             Inventory Management
           </h1>
-          <p class="text-slate-500">Monitor and manage your products and raw materials in real-time.</p>
+          <p class="text-slate-500">
+            Monitor and manage your products and raw materials in real-time.
+          </p>
         </header>
 
         <div class="bg-white rounded-2xl shadow-sm p-6">
