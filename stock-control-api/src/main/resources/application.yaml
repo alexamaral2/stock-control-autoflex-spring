@@ -13,7 +13,6 @@ spring:
     password: ${SPRING_DATASOURCE_PASSWORD}
 
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: validate
     open-in-view: false

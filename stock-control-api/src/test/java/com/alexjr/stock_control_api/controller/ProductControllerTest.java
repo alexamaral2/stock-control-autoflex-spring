@@ -1,5 +1,6 @@
 package com.alexjr.stock_control_api.controller;
 
+import com.alexjr.stock_control_api.config.TestSecurityConfig;
 import com.alexjr.stock_control_api.repository.ProductRepository;
 import com.alexjr.stock_control_api.repository.RawMaterialRepository;
 import io.restassured.RestAssured;
@@ -9,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import static io.restassured.RestAssured.given;
@@ -16,6 +19,8 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
+@Import(TestSecurityConfig.class)
 class ProductControllerTest {
 
     @LocalServerPort
