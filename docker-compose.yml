@@ -14,6 +14,34 @@ services:
       timeout: 5s
       retries: 5
 
+  keycloak-db:
+    image: postgres:18
+    container_name: keycloak-db
+    environment:
+      POSTGRES_DB: ${KC_DB_NAME}
+      POSTGRES_USER: ${KC_DB_USER}
+      POSTGRES_PASSWORD: ${KC_DB_PASSWORD}
+    volumes:
+      - keycloak_pg:/var/lib/postgresql/
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.5.4
+    container_name: stock-control-auth
+    command: start-dev
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/${KC_DB_NAME}
+      KC_DB_USERNAME: ${KC_DB_USER}
+      KC_DB_PASSWORD: ${KC_DB_PASSWORD}
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_BOOTSTRAP_ADMIN_USERNAME}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_BOOTSTRAP_ADMIN_PASSWORD}
+      KC_HOSTNAME_STRICT: "false"
+      KC_HTTP_ENABLED: "true"
+    ports:
+      - "8081:8080"
+    depends_on:
+      - keycloak-db
+
   api:
     build:
       context: ./stock-control-api
@@ -30,6 +58,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      keycloak:
+        condition: service_started
     ports:
       - "8080:8080"
     healthcheck:
@@ -57,4 +87,5 @@ services:
 
 volumes:
   stock_control_pg:
+  keycloak_pg:
   maven-cache:
