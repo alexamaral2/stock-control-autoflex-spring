@@ -62,15 +62,21 @@ export class ProductFormComponent implements OnInit {
 
     this.rawMaterialService.findAll().subscribe({
       next: (materials) => {
-        this.availableMaterials.set(materials);
-        if (id) {
-          this.productId = +id;
-          this.loadProductData(this.productId);
-        } else {
-          this.addMaterial();
-        }
+        this.availableMaterials.set(materials || []);
+      },
+      error: (err) => {
+        console.error('Error fetching materials:', err);
+        this.availableMaterials.set([]);
       },
     });
+
+    if (id) {
+      this.productId = +id;
+      this.loadProductData(this.productId);
+    } else {
+      this.materials.clear();
+      this.addMaterial();
+    }
   }
 
   compareFn(o1: any, o2: any): boolean {
