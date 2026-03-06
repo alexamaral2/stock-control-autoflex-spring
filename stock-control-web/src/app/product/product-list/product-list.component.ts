@@ -29,7 +29,7 @@ import { Product } from '../product.model';
 })
 export class ProductListComponent implements OnInit {
   private service = inject(ProductService);
-  private router = inject(Router); // 2. Injetado o Router para fazer o redirecionamento
+  private router = inject(Router);
 
   products = signal<Product[]>([]);
   displayedColumns = ['code', 'name', 'price', 'actions'];
@@ -49,7 +49,6 @@ export class ProductListComponent implements OnInit {
     this.refresh();
   }
 
-  // 3. Novo método para tratar o clique na linha
   onRowClick(product: Product) {
     this.router.navigate(['/products', product.id]);
   }

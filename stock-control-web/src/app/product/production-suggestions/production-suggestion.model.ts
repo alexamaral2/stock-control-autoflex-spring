@@ -1,4 +1,5 @@
 export interface ProductSuggestion {
+  productId: number;
   productName: string;
   productCode: string;
   quantityToProduce: number;

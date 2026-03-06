@@ -1,0 +1,143 @@
+<div class="space-y-8 animate-in fade-in duration-500">
+
+  <div class="flex justify-between items-end">
+    <div>
+      <h2 class="text-3xl font-black text-slate-900 tracking-tight">System Dashboard</h2>
+      <p class="text-slate-500">Overview of your inventory and manufacturing capacity.</p>
+    </div>
+    <button mat-flat-button (click)="loadDashboardData()" [disabled]="loading()"
+            class="!rounded-xl !bg-white !text-slate-600 border border-slate-200 shadow-sm hover:shadow-md transition-all">
+      <mat-icon [class.animate-spin]="loading()" class="mr-2">refresh</mat-icon>
+      Sync Data
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm transition-transform hover:scale-[1.02]">
+      <div class="flex justify-between items-start mb-4">
+        <div class="bg-blue-50 p-3 rounded-2xl text-blue-600 shadow-inner">
+          <mat-icon>inventory_2</mat-icon>
+        </div>
+        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Global</span>
+      </div>
+      <p class="text-sm font-medium text-slate-500">Products</p>
+      <h3 class="text-3xl font-black text-slate-900">{{ stats().totalProducts }}</h3>
+    </div>
+
+    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm transition-transform hover:scale-[1.02]">
+      <div class="flex justify-between items-start mb-4">
+        <div class="bg-purple-50 p-3 rounded-2xl text-purple-600 shadow-inner">
+          <mat-icon>layers</mat-icon>
+        </div>
+        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">In Stock</span>
+      </div>
+      <p class="text-sm font-medium text-slate-500">Raw Materials</p>
+      <h3 class="text-3xl font-black text-slate-900">{{ stats().totalMaterials }}</h3>
+    </div>
+
+    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm transition-transform hover:scale-[1.02]">
+      <div class="flex justify-between items-start mb-4">
+        <div class="bg-red-50 p-3 rounded-2xl text-red-600 shadow-inner">
+          <mat-icon>priority_high</mat-icon>
+        </div>
+        <span class="text-[10px] font-bold text-red-400 uppercase tracking-widest">Critical</span>
+      </div>
+      <p class="text-sm font-medium text-slate-500">Low Stock</p>
+      <h3 class="text-3xl font-black" [class.text-red-600]="stats().lowStockMaterials > 0">
+        {{ stats().lowStockMaterials }}
+      </h3>
+    </div>
+
+    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm transition-transform hover:scale-[1.02]">
+      <div class="flex justify-between items-start mb-4">
+        <div class="bg-emerald-50 p-3 rounded-2xl text-emerald-600 shadow-inner">
+          <mat-icon>payments</mat-icon>
+        </div>
+        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Portfolio</span>
+      </div>
+      <p class="text-sm font-medium text-slate-500">Catalog Value</p>
+      <h3 class="text-3xl font-black text-emerald-600">{{ stats().catalogValue | currency }}</h3>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div class="lg:col-span-2 bg-white rounded-[2.5rem] border border-slate-200 shadow-sm overflow-hidden">
+      <div class="p-8 border-b border-slate-100 flex justify-between items-center bg-slate-50/30">
+        <h2 class="text-xl font-bold text-slate-800 flex items-center gap-3">
+          <mat-icon class="text-blue-500">auto_awesome</mat-icon>
+          Production Insights
+        </h2>
+        <span class="px-4 py-1.5 bg-blue-600 text-white text-[10px] font-black rounded-full uppercase tracking-widest shadow-lg shadow-blue-200">
+          Suggestions
+        </span>
+      </div>
+
+      <div class="p-8">
+        <div *ngIf="suggestions().length > 0; else noSuggestions" class="space-y-4">
+          <div *ngFor="let s of suggestions()"
+               class="flex items-center p-6 border border-slate-100 rounded-2xl hover:border-blue-200 hover:bg-blue-50/20 transition-all group">
+            <div class="flex-1">
+              <h4 class="font-bold text-lg text-slate-900 group-hover:text-blue-700 transition-colors">{{ s.productName }}</h4>
+
+              <p class="text-sm italic flex items-center gap-1"
+                 [class.text-red-500]="s.quantityToProduce === 0"
+                 [class.text-slate-500]="s.quantityToProduce > 0">
+                <mat-icon *ngIf="s.quantityToProduce === 0" class="!text-sm h-auto w-auto">warning</mat-icon>
+                {{ s.quantityToProduce === 0 ? 'Insufficient materials' : 'Capacity to produce ' }}
+                <span class="font-bold text-slate-900" *ngIf="s.quantityToProduce > 0">{{ s.quantityToProduce }} units</span>
+              </p>
+            </div>
+
+            <button mat-flat-button color="primary"
+                    class="!rounded-xl shadow-md !px-6"
+                    [routerLink]="['/products/edit', s.productId]">
+              Build
+            </button>
+          </div>
+        </div>
+        <ng-template #noSuggestions>
+          <div class="text-center py-20">
+            <div class="inline-flex p-8 bg-slate-50 rounded-full mb-6 text-slate-200">
+              <mat-icon class="!text-6xl h-auto w-auto">precision_manufacturing</mat-icon>
+            </div>
+            <p class="text-slate-400 font-bold text-lg">No production batch suggested.</p>
+            <p class="text-slate-400 text-sm">Stock levels are insufficient for new assemblies.</p>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="bg-slate-950 rounded-[2.5rem] p-10 text-white shadow-2xl flex flex-col justify-between relative overflow-hidden">
+      <div class="absolute -right-10 -top-10 w-48 h-48 bg-blue-500/10 rounded-full blur-[90px]"></div>
+
+      <div class="relative z-10">
+        <h2 class="text-2xl font-black mb-4 tracking-tight text-white">Quick Actions</h2>
+        <p class="text-slate-400 text-sm mb-12 leading-relaxed">Instantly access the registry to update your inventory items.</p>
+
+        <div class="space-y-4">
+          <button class="w-full flex items-center justify-between p-6 bg-white/5 hover:bg-white/10 rounded-2xl border border-white/5 transition-all group shadow-sm" routerLink="/products/new">
+            <span class="flex items-center gap-4 text-lg font-medium text-white">
+              <div class="bg-blue-500/20 p-2.5 rounded-xl"><mat-icon class="text-blue-400">add_circle</mat-icon></div>
+              New Product
+            </span>
+            <mat-icon class="text-slate-700 group-hover:text-white transition-all">chevron_right</mat-icon>
+          </button>
+
+          <button class="w-full flex items-center justify-between p-6 bg-white/5 hover:bg-white/10 rounded-2xl border border-white/5 transition-all group shadow-sm" routerLink="/raw-materials/new">
+            <span class="flex items-center gap-4 text-lg font-medium text-white">
+              <div class="bg-purple-500/20 p-2.5 rounded-xl"><mat-icon class="text-purple-400">layers</mat-icon></div>
+              New Material
+            </span>
+            <mat-icon class="text-slate-700 group-hover:text-white transition-all">chevron_right</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-16 pt-8 border-t border-white/10 relative z-10 opacity-30 flex items-center justify-between">
+        <span class="text-[10px] uppercase font-black text-slate-500 tracking-[0.3em]">Stock Master</span>
+        <mat-icon class="text-slate-600">verified_user</mat-icon>
+      </div>
+    </div>
+
+  </div>
+</div>

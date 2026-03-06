@@ -23,6 +23,7 @@ export class AppComponent {
   private readonly keycloak = inject(Keycloak);
 
   readonly navItems = [
+    { path: '/dashboard', label: 'Dashboard', icon: 'grid_view' },
     { path: '/products', label: 'Products', icon: 'inventory_2' },
     { path: '/raw-materials', label: 'Raw Materials', icon: 'layers' },
     { path: '/products/suggestions', label: 'Suggestions', icon: 'analytics' },

@@ -201,6 +201,7 @@ public class ProductService {
                 product.getPrice().multiply(BigDecimal.valueOf(quantity));
 
         return new ProductSuggestionDTO(
+                product.getId(),
                 product.getName(),
                 product.getCode(),
                 quantity,
